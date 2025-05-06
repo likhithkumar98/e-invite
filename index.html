@@ -39,9 +39,9 @@
       position: absolute;
       top: 0;
       left: 50%;
-      transform: translate(-50%, 20px);
+      transform: translate(-50%, 50%) 1:1);
       width: 300px;
-      opacity: 0;
+      opacity: 1;
       transition: transform 1s ease, opacity 1s ease;
       z-index: 1;
     }
@@ -74,7 +74,12 @@
   </style>
 </head>
 <body>
-
+  
+  <div class="map-container" id="mapContainer">
+    <img src="invitation.jpg" alt="Invitation" class="invitation">
+    <a href="engagement_event.ics" download class="calendar-btn">📅</a>
+  </div>
+  
   <div class="container" id="envelopeContainer">
     <div class="envelope"></div>
     <img src="invitation.jpg" alt="Invitation" class="invitation">
