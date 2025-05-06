@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,37 +112,32 @@
         <div class="flap"></div>
         <div class="body"></div>
       </div>
-      <div class="content" id="content">
-        <embed 
-          src="data:application/pdf;base64,REPLACE_WITH_YOUR_BASE64_PDF"
-          type="application/pdf"
-          class="pdf-viewer"
-        />
+      <div class="content">
+        <embed src="invite.pdf" type="application/pdf" class="pdf-viewer" />
       </div>
     </div>
   </div>
+  
+<div class="rsvp-btn" style="bottom: 60px;">
+  <a href="engagement_event.ics" download>
+    📅 Add to Calendar
+  </a>
+</div>
 
-  <!-- RSVP Button -->
-  <div class="rsvp-btn">
-    <a href="mailto:your.email@example.com?subject=RSVP for Engagement">
-      RSVP
-    </a>
+<div class="rsvp-btn">
+    <a href="mailto:your.email@example.com?subject=RSVP for Engagement">RSVP</a>
   </div>
-
-  <!-- Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
-    function launchConfetti() {
-      confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-    }
-
     function openEnvelope() {
       document.getElementById('envelope').classList.add('open');
-      setTimeout(launchConfetti, 800);
+      setTimeout(() => {
+        confetti({
+          particleCount: 120,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }, 800);
     }
   </script>
 </body>
