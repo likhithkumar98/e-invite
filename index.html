@@ -15,17 +15,16 @@
 
     /* ---------- LAYOUT ---------- */
     .wrapper{
+      height:100%;
       display:flex;
       flex-direction:column;
       justify-content:center;
       align-items:center;
-      height:100%;
     }
     .container{
       position:relative;
-      width:500px;
-      height:375px;
-      max-width:90vw;
+      width:min(340px,90vw);        /* fits any phone width */
+      aspect-ratio:4/3;             /* keeps envelope proportion */
     }
 
     /* ---------- ENVELOPE ---------- */
@@ -33,103 +32,93 @@
       position:absolute;inset:0;
       background:url('envelope.png') center/contain no-repeat;
       cursor:pointer;
-      transition:opacity 1s ease;
+      transition:opacity .8s ease;
       z-index:2;
     }
 
     /* ---------- INVITATION ---------- */
     .invitation{
       position:absolute;
-      top:50%;left:50%;
-      width:320px;
-      max-width:70vw;
-      transform:translate(-50%,-50%) scale(.5);
+      inset:0;
+      width:100%;height:100%;
+      object-fit:contain;
+      border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,.2);
+      transform:scale(.55);
       opacity:0;
       transition:transform .8s ease,opacity .8s ease;
       z-index:1;
-      border-radius:8px;
-      box-shadow:0 4px 12px rgba(0,0,0,.2);
     }
 
     /* ---------- STATE CHANGES ---------- */
     .open .envelope{opacity:0;pointer-events:none;}
-    .open .invitation{opacity:1;transform:translate(-50%,-50%) scale(1.05);}
+    .open .invitation{opacity:1;transform:scale(1);}
 
     /* ---------- BUTTON BAR ---------- */
-    .map-calendar-container{
-      margin-top:36px;
+    .btn-bar{
+      margin-top:1.4rem;
       display:flex;
       justify-content:center;
-      gap:14px;
+      gap:0.85rem;
       opacity:0;
-      transition:opacity 1s ease;
+      transition:opacity .8s ease;
     }
-    .map-calendar-container.show{opacity:1;}
+    .btn-bar.show{opacity:1;}
 
     .btn{
       background:#89516d;
-      padding:4px 10px;          /* ← smaller padding */
       color:#fff;
+      font-size:.72rem;
       font-weight:600;
+      padding:6px 14px;
       border:none;
-      border-radius:5px;         /* slightly smaller radius */
-      font-size:.7rem;           /* ← smaller font */
+      border-radius:5px;
       text-decoration:none;
-      cursor:pointer;
-      transition:background .25s ease;
-      display:inline-flex;
+      display:flex;
       align-items:center;
-      justify-content:center;
+      gap:.35rem;
+      line-height:1;
       white-space:nowrap;
+      transition:background .25s ease,transform .25s ease;
     }
-    .btn:hover{background:#6e4058;}
+    .btn:hover{background:#6e4058;transform:translateY(-2px);}
+    .btn:focus-visible{outline:2px solid #f8bbd0;outline-offset:2px;}
 
-    /* ---------- MOBILE ---------- */
-    @media (max-width:480px){
-      .container{height:calc(375/500*90vw);}
-      .map-calendar-container{
-        flex-direction:column;
-        gap:10px;
-        margin-top:28px;
-      }
-      .btn{
-        width:68vw;             /* comfortable tap width */
-        max-width:220px;
-        padding:6px 12px;
-        font-size:.8rem;        /* bump for readability on small screens */
-      }
-    }
+    /* make sure buttons never exceed the card width */
+    .btn{max-width:calc(160px + 4vw);}
   </style>
 </head>
 <body>
 
   <div class="wrapper">
+    <!-- envelope / invitation -->
     <div class="container" id="envelopeContainer">
       <div class="envelope"></div>
       <img src="invitation.jpg" alt="Invitation" class="invitation">
     </div>
 
-    <div class="map-calendar-container" id="infoButtons">
+    <!-- buttons -->
+    <div class="btn-bar" id="infoButtons">
       <a href="https://maps.app.goo.gl/cwsiUbtsPYxdDcKk6" target="_blank" class="btn">
-        📍 Get&nbsp;Directions
+        📍&nbsp;Directions
       </a>
       <a href="engagement_event.ics" download class="btn">
-        📅 Add&nbsp;to&nbsp;Calendar
+        📅&nbsp;Calendar
       </a>
     </div>
   </div>
 
   <script>
-    let clickCount = 0;
+    let clicks = 0;
     const envelopeContainer = document.getElementById('envelopeContainer');
     const infoButtons       = document.getElementById('infoButtons');
 
     envelopeContainer.addEventListener('click', () => {
-      clickCount++;
-      if(clickCount === 1){
-        envelopeContainer.classList.add('open');
-      }else if(clickCount === 2){
-        infoButtons.classList.add('show');
+      clicks++;
+      if (clicks === 1){
+        envelopeContainer.classList.add('open');  // reveal invitation
+      } else if (clicks === 2){
+        infoButtons.classList.add('show');        // reveal buttons
       }
     });
   </script>
