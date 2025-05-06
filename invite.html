@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engagement Invitation</title>
+  <style>
+    /* ---------- RESET & BASE ---------- */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      height:100%;
+      background:#fdf2f8;
+      font-family:Arial,Helvetica,sans-serif;
+      overflow:hidden;
+    }
+
+    /* ---------- LAYOUT ---------- */
+    .wrapper{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      height:100%;
+    }
+
+    .container{
+      position:relative;
+      width:500px;
+      height:375px;
+      max-width:90vw;          /* scale down on phones */
+    }
+
+    /* ---------- ENVELOPE ---------- */
+    .envelope{
+      position:absolute;
+      inset:0;
+      background:url('envelope.png') center/contain no-repeat;
+      cursor:pointer;
+      transition:opacity 1s ease;
+      z-index:2;
+    }
+
+    /* ---------- INVITATION ---------- */
+    .invitation{
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:320px;
+      max-width:70vw;          /* responsive width */
+      transform:translate(-50%,-50%) scale(.5);
+      opacity:0;
+      transition:transform .8s ease,opacity .8s ease;
+      z-index:1;
+      border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,.2);
+    }
+
+    /* ---------- STATE CHANGES ---------- */
+    .open .envelope{opacity:0;pointer-events:none;}
+    .open .invitation{
+      opacity:1;
+      transform:translate(-50%,-50%) scale(1.05);
+    }
+
+    /* ---------- BUTTON BAR ---------- */
+    .map-calendar-container{
+      margin-top:60px;
+      width:100%;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      opacity:0;
+      transition:opacity 1s ease;
+    }
+    .map-calendar-container.show{opacity:1;}
+
+    .btn{
+      background:#89516d;
+      padding:8px 16px;
+      color:#fff;
+      font-weight:700;
+      border:none;
+      border-radius:6px;
+      font-size:.9rem;
+      text-decoration:none;
+      cursor:pointer;
+      transition:background .3s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      white-space:nowrap;
+    }
+    .btn:hover{background:#6e4058;}
+
+    /* ---------- MOBILE ---------- */
+    @media (max-width:480px){
+      .container{
+        height:calc(375/500*90vw);  /* keep aspect ratio */
+      }
+      .map-calendar-container{
+        flex-direction:column;
+        gap:12px;
+        margin-top:40px;
+      }
+      .btn{
+        width:80vw;
+        max-width:280px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="container" id="envelopeContainer">
+      <div class="envelope"></div>
+      <img src="invitation.jpg" alt="Invitation" class="invitation">
+    </div>
+
+    <div class="map-calendar-container" id="infoButtons">
+      <a href="https://maps.app.goo.gl/cwsiUbtsPYxdDcKk6" target="_blank" class="btn">
+        📍 Get Directions
+      </a>
+      <a href="engagement_event.ics" download class="btn">
+        📅 Add to Calendar
+      </a>
+    </div>
+  </div>
+
+  <script>
+    let clickCount = 0;
+    const envelopeContainer = document.getElementById('envelopeContainer');
+    const infoButtons       = document.getElementById('infoButtons');
+
+    envelopeContainer.addEventListener('click', () => {
+      clickCount++;
+      if(clickCount === 1){
+        envelopeContainer.classList.add('open');
+      }else if(clickCount === 2){
+        infoButtons.classList.add('show');
+      }
+    });
+  </script>
+</body>
+</html>
