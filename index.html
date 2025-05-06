@@ -8,6 +8,7 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
+    /* ----------- PAGE ----------- */
     body{
       height:100vh;
       display:flex;
@@ -18,124 +19,122 @@
       overflow:hidden;
     }
 
-    /* ---------- LAYOUT ---------- */
-    .container{
+    /* ----------- CARD ----------- */
+    .card{
+      position:relative;
       width:350px;
-      display:flex;
-      flex-direction:column;   /* envelope on top, invite below */
-      align-items:center;
-      gap:1.25rem;
+      height:500px;
+      perspective:1200px;       /* depth for the flip animation               */
     }
 
-    /* ---------- ENVELOPE ---------- */
+    /* ----------- ENVELOPE ----------- */
     .envelope{
-      width:100%;
-      aspect-ratio:7/10;                       /* keeps image ratio */
+      position:absolute;
+      inset:0;                  /* fill the card */
       background:url('envelope.png') center/contain no-repeat;
       cursor:pointer;
       transform-origin:top center;
-      transition:transform .6s ease;
-      perspective:1000px;                      /* 3-D depth for flip */
+      transition:transform .8s ease, opacity .8s ease;
+      z-index:2;
     }
     .envelope.open{
       transform:rotateX(-180deg);
+      opacity:0;                /* fade so it doesn’t block clicks afterwards */
+      pointer-events:none;
     }
 
-    /* ---------- INVITATION ---------- */
-    .invitation-wrapper{
-      width:100%;
-      transform-origin:top center;
-      transform:scaleY(0);
+    /* ----------- INVITATION ----------- */
+    .invitation{
+      position:absolute;
+      top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(0);
       opacity:0;
-      transition:transform .6s ease,opacity .6s ease;
+      transition:transform .6s ease .2s, opacity .6s ease .2s;
+      width:300px;              /* invitation width */
     }
-    .invitation-wrapper.show{
-      transform:scaleY(1);
+    .invitation.show{
+      transform:translate(-50%,-50%) scale(1);
       opacity:1;
     }
-    .invitation-wrapper img{
+    .invitation img{
       width:100%;
       border-radius:8px;
       box-shadow:0 4px 12px rgba(0,0,0,.2);
       display:block;
     }
 
-    /* ---------- ACTION BUTTONS ---------- */
-    .invite-actions{
+    /* ----------- ACTION BUTTONS ----------- */
+    .actions{
       margin-top:1rem;
       display:flex;
-      justify-content:space-between;   /* calendar left, location right */
-      width:100%;
+      justify-content:space-between;  /* calendar left, location right */
     }
     .btn{
       display:flex;
       align-items:center;
       gap:.4rem;
-      padding:.65rem 1.1rem;
+      padding:.6rem 1rem;
       border:none;
       border-radius:8px;
       background:#d81b60;
       color:#fff;
-      font-size:.85rem;
+      font-size:.8rem;
       font-weight:600;
       text-decoration:none;
       cursor:pointer;
-      transition:background .25s ease,transform .25s ease,box-shadow .25s ease;
+      transition:background .25s ease, transform .25s ease;
     }
     .btn:hover{
       background:#ad1457;
       transform:translateY(-2px);
-      box-shadow:0 6px 16px rgba(0,0,0,.18);
     }
     .btn:focus-visible{
       outline:2px solid #f8bbd0;
       outline-offset:2px;
     }
     .icon{
-      width:18px;
-      height:18px;
-      fill:currentColor;
+      width:18px; height:18px; fill:currentColor;
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="card">
     <!-- envelope -->
-    <div class="envelope" id="envelope"></div>
+    <div id="envelope" class="envelope"></div>
 
-    <!-- invitation (initially collapsed) -->
-    <div class="invitation-wrapper" id="invite">
+    <!-- invitation -->
+    <div id="invitation" class="invitation">
       <img src="invitation.jpg" alt="Invitation"/>
 
-      <div class="invite-actions">
-        <!-- calendar left -->
+      <div class="actions">
+        <!-- calendar (left) -->
         <a href="engagement_event.ics" class="btn" download>
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM7 11h5v5H7z"/>
           </svg>
-          <span>Add&nbsp;to&nbsp;Calendar</span>
+          Add&nbsp;to&nbsp;Calendar
         </a>
 
-        <!-- location right -->
+        <!-- location (right) -->
         <a href="https://www.google.com/maps?q=Sadguru+CSR+Palace+Vidyaranyapura+Bangalore"
            target="_blank" rel="noopener" class="btn">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
           </svg>
-          <span>View&nbsp;Location</span>
+          View&nbsp;Location
         </a>
       </div>
     </div>
   </div>
 
   <script>
-    const envelope = document.getElementById('envelope');
-    const invite   = document.getElementById('invite');
+    const envelope   = document.getElementById('envelope');
+    const invitation = document.getElementById('invitation');
 
     envelope.addEventListener('click', () => {
-      envelope.classList.toggle('open');   // flip the envelope
-      invite.classList.toggle('show');     // reveal / hide invitation
+      envelope.classList.add('open');     // flip/fade envelope
+      invitation.classList.add('show');   // reveal invitation
     });
   </script>
 </body>
