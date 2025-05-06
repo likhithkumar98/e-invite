@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+SUMMARY:Engagement Ceremony of Suchitra & Karthik
+DTSTART;TZID=Asia/Kolkata:20250528T180000
+DTEND;TZID=Asia/Kolkata:20250528T210000
+LOCATION:Sadguru CSR Palace, Adityanagar, Vidyaranyapura, Bengaluru, Karnataka 560097, India
+DESCRIPTION:Join us in celebrating the engagement of Suchitra Muthu and K Surender Karthik.
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT30M
+DESCRIPTION:Reminder
+ACTION:DISPLAY
+END:VALARM
+END:VEVENT
+END:VCALENDAR
