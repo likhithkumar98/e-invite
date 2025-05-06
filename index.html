@@ -1,143 +1,93 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Engagement Invite - Animated Envelope</title>
+  <meta charset="UTF-8">
+  <title>Interactive Invitation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      background: #fce4ec;
+      background-color: #fdf2f8;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden;
+      font-family: sans-serif;
     }
-    .envelope-container {
+
+    .container {
       position: relative;
-      width: 350px;
-      height: 250px;
-      perspective: 1000px;
+      width: 500px;
+      height: 375px;
       cursor: pointer;
+      perspective: 1000px;
     }
+
     .envelope {
       width: 100%;
       height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 1s ease-in-out;
-    }
-    .envelope.open {
-      transform: rotateX(-180deg);
-    }
-    .content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: white;
-      opacity: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 1s ease 0.5s;
-      backface-visibility: hidden;
-    }
-    .envelope.open .content {
-      opacity: 1;
-    }
-    .pdf-viewer {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 8px;
-    }
-    .front {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      background-image: url('envelope.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 1s ease;
       transform-origin: top;
-      backface-visibility: hidden;
+      z-index: 2;
     }
-    .body {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 60%;
-      background: white;
-      border: 2px solid #d81b60;
-      box-sizing: border-box;
-    }
-    .flap {
+
+    .invitation {
       position: absolute;
       top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 175px solid transparent;
-      border-right: 175px solid transparent;
-      border-bottom: 125px solid white;
-      box-shadow: 0 2px 2px rgba(0,0,0,0.1);
-      transition: transform 1s;
+      left: 50%;
+      transform: translate(-50%, 20px);
+      width: 300px;
+      opacity: 0;
+      transition: transform 1s ease, opacity 1s ease;
+      z-index: 1;
     }
-    .envelope.open .flap {
-      transform: translateY(-60%) rotateX(-180deg);
+
+    .open .envelope {
+      transform: rotateX(100deg);
     }
-    .rsvp-btn {
+
+    .open .invitation {
+      opacity: 1;
+      transform: translate(-50%, -380px);
+    }
+
+    .calendar-btn {
       position: absolute;
-      bottom: 15px;
-      right: 15px;
-      z-index: 10;
-    }
-    .rsvp-btn a {
-      background: #d81b60;
+      bottom: 20px;
+      right: 20px;
+      background-color: #d81b60;
       color: white;
       padding: 10px 16px;
       border-radius: 6px;
       text-decoration: none;
-      font-family: sans-serif;
       font-size: 14px;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .open .calendar-btn {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-  <div class="envelope-container" onclick="openEnvelope()">
-    <div class="envelope" id="envelope">
-      <div class="front">
-        <div class="flap"></div>
-        <div class="body"></div>
-      </div>
-      <div class="content">
-        <img src="invite.png" alt="Engagement Invitation" class="pdf-viewer" />
-      </div>
-    </div>
-  </div>
-  
-<div class="rsvp-btn" style="bottom: 60px;">
-  <a href="engagement_event.ics" download>
-    📅 Add to Calendar
-  </a>
-</div>
 
-<div class="rsvp-btn">
-    <a href="mailto:your.email@example.com?subject=RSVP for Engagement">RSVP</a>
+  <div class="container" id="envelopeContainer">
+    <div class="envelope"></div>
+    <img src="invitation.jpg" alt="Invitation" class="invitation">
+    <a href="engagement_event.ics" download class="calendar-btn">📅 Add to Calendar</a>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
   <script>
-    function openEnvelope() {
-      document.getElementById('envelope').classList.add('open');
-      setTimeout(() => {
-        confetti({
-          particleCount: 120,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      }, 800);
-    }
+    document.getElementById("envelopeContainer").addEventListener("click", function () {
+      this.classList.toggle("open");
+    });
   </script>
+
 </body>
 </html>
