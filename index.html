@@ -1,141 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Engagement Invite</title>
-
+  <meta charset="UTF-8">
+  <title>Engagement Invitation</title>
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-    /* ----------- PAGE ----------- */
-    body{
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background:#fdf2f8;
-      font-family:Arial,Helvetica,sans-serif;
-      overflow:hidden;
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #fdf2f8;
+      font-family: sans-serif;
+      overflow: hidden;
     }
 
-    /* ----------- CARD ----------- */
-    .card{
-      position:relative;
-      width:350px;
-      height:500px;
-      perspective:1200px;       /* depth for the flip animation               */
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
     }
 
-    /* ----------- ENVELOPE ----------- */
-    .envelope{
-      position:absolute;
-      inset:0;                  /* fill the card */
-      background:url('envelope.png') center/contain no-repeat;
-      cursor:pointer;
-      transform-origin:top center;
-      transition:transform .8s ease, opacity .8s ease;
-      z-index:2;
-    }
-    .envelope.open{
-      transform:rotateX(-180deg);
-      opacity:0;                /* fade so it doesn’t block clicks afterwards */
-      pointer-events:none;
+    .container {
+      position: relative;
+      width: 500px;
+      height: 375px;
+      overflow: visible;
     }
 
-    /* ----------- INVITATION ----------- */
-    .invitation{
-      position:absolute;
-      top:50%; left:50%;
-      transform:translate(-50%,-50%) scale(0);
-      opacity:0;
-      transition:transform .6s ease .2s, opacity .6s ease .2s;
-      width:300px;              /* invitation width */
-    }
-    .invitation.show{
-      transform:translate(-50%,-50%) scale(1);
-      opacity:1;
-    }
-    .invitation img{
-      width:100%;
-      border-radius:8px;
-      box-shadow:0 4px 12px rgba(0,0,0,.2);
-      display:block;
+    .envelope {
+      width: 100%;
+      height: 100%;
+      background-image: url('envelope.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: opacity 1s ease;
+      z-index: 2;
     }
 
-    /* ----------- ACTION BUTTONS ----------- */
-    .actions{
-      margin-top:1rem;
-      display:flex;
-      justify-content:space-between;  /* calendar left, location right */
+    .invitation {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 320px;
+      transform: translate(-50%, -50%) scale(0.5);
+      opacity: 0;
+      transition: transform 0.8s ease, opacity 0.8s ease;
+      z-index: 1;
     }
-    .btn{
-      display:flex;
-      align-items:center;
-      gap:.4rem;
-      padding:.6rem 1rem;
-      border:none;
-      border-radius:8px;
-      background:#d81b60;
-      color:#fff;
-      font-size:.8rem;
-      font-weight:600;
-      text-decoration:none;
-      cursor:pointer;
-      transition:background .25s ease, transform .25s ease;
+
+    .open .envelope {
+      opacity: 0;
     }
-    .btn:hover{
-      background:#ad1457;
-      transform:translateY(-2px);
+
+    .open .invitation {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.1);
     }
-    .btn:focus-visible{
-      outline:2px solid #f8bbd0;
-      outline-offset:2px;
+
+    .map-calendar-container {
+      margin-top: 75px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 40px;
+      opacity: 0;
+      transition: opacity 1s ease;
+      justify-content: center;
+      gap: 20px;  
     }
-    .icon{
-      width:18px; height:18px; fill:currentColor;
+
+    
+    .map-calendar-container.show {
+      opacity: 1;
+    }
+
+    .map-button, .calendar-btn {
+      background-color: #89516d;
+      padding: 6px 14px;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85em;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .map-button:hover,
+    .calendar-btn:hover {
+      background-color: #89516d;
+    }
+
+    .calendar-btn {
+      background-color: #89516d;
     }
   </style>
 </head>
-
 <body>
-  <div class="card">
-    <!-- envelope -->
-    <div id="envelope" class="envelope"></div>
 
-    <!-- invitation -->
-    <div id="invitation" class="invitation">
-      <img src="invitation.jpg" alt="Invitation"/>
+  <div class="wrapper">
+    <div class="container" id="envelopeContainer">
+      <div class="envelope"></div>
+      <img src="invitation.jpg" alt="Invitation" class="invitation">
+    </div>
 
-      <div class="actions">
-        <!-- calendar (left) -->
-        <a href="engagement_event.ics" class="btn" download>
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM7 11h5v5H7z"/>
-          </svg>
-          Add&nbsp;to&nbsp;Calendar
-        </a>
-
-        <!-- location (right) -->
-        <a href="https://www.google.com/maps?q=Sadguru+CSR+Palace+Vidyaranyapura+Bangalore"
-           target="_blank" rel="noopener" class="btn">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/>
-          </svg>
-          View&nbsp;Location
-        </a>
-      </div>
+    <div class="map-calendar-container" id="infoButtons">
+      <a href="https://www.google.com/maps/place/Sadguru+CSR+PALACE/@13.0961612,77.54784,17z" target="_blank" class="map-button">
+        📍 Get Directions
+      </a>
+      <a href="engagement_event.ics" download class="calendar-btn">
+        📅 Add to Calendar
+      </a>
     </div>
   </div>
 
   <script>
-    const envelope   = document.getElementById('envelope');
-    const invitation = document.getElementById('invitation');
+    let clickCount = 0;
+    const envelopeContainer = document.getElementById("envelopeContainer");
+    const infoButtons = document.getElementById("infoButtons");
 
-    envelope.addEventListener('click', () => {
-      envelope.classList.add('open');     // flip/fade envelope
-      invitation.classList.add('show');   // reveal invitation
+    envelopeContainer.addEventListener("click", function () {
+      clickCount++;
+      if (clickCount === 1) {
+        this.classList.add("open");
+      } else if (clickCount === 2) {
+        infoButtons.classList.add("show");
+      }
     });
   </script>
+
 </body>
 </html>
