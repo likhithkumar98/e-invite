@@ -1,92 +1,90 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Engagement Invite</title>
+  <meta charset="UTF-8">
+  <title>Interactive Invitation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      background: #fdf2f8;
-      height: 100vh;
+      background-color: #fdf2f8;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      height: 100vh;
       font-family: sans-serif;
-      overflow: hidden;
     }
 
     .container {
       position: relative;
-      width: 350px;
-      height: 500px;
-      text-align: center;
+      width: 500px;
+      height: 375px;
+      cursor: pointer;
+      perspective: 1000px;
     }
 
     .envelope {
       width: 100%;
-      height: auto;
+      height: 100%;
       background-image: url('envelope.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      cursor: pointer;
-      transition: transform 0.4s ease;
+      transition: transform 1s ease;
+      transform-origin: top;
       z-index: 2;
     }
 
-    .invitation-wrapper {
+    .invitation {
       position: absolute;
-      top: 50%;
+      top: 0;
       left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      transition: transform 0.6s ease, opacity 0.6s ease;
-      z-index: 3;
-    }
-
-    .invitation-wrapper.show {
-      transform: translate(-50%, -60%) scale(1);
-      opacity: 1;
-    }
-
-    .invitation-wrapper img {
+      transform: translate(-50%, 20px);
       width: 300px;
-      max-width: 90vw;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: transform 1s ease, opacity 1s ease;
+      z-index: 1;
+    }
+
+    .open .envelope {
+      transform: rotateX(100deg);
+    }
+
+    .open .invitation {
+      opacity: 1;
+      transform: translate(-50%, -380px);
     }
 
     .calendar-btn {
-      margin-top: 15px;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
       background-color: #d81b60;
       color: white;
       padding: 10px 16px;
       border-radius: 6px;
       text-decoration: none;
       font-size: 14px;
-      display: inline-block;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .open .calendar-btn {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="envelope" id="envelope"></div>
-    <div class="invitation-wrapper" id="invite">
-      <img src="invitation.jpg" alt="Invitation" />
-      <br />
-      <a href="engagement_event.ics" class="calendar-btn" download>📅 Add to Calendar</a>
-    </div>
+  <div class="container" id="envelopeContainer">
+    <div class="envelope"></div>
+    <img src="invitation.jpg" alt="Invitation" class="invitation">
+    <a href="engagement_event.ics" download class="calendar-btn">📅 Add to Calendar</a>
   </div>
 
   <script>
-    const envelope = document.getElementById("envelope");
-    const invite = document.getElementById("invite");
-
-    envelope.addEventListener("click", () => {
-      invite.classList.toggle("show");
+    document.getElementById("envelopeContainer").addEventListener("click", function () {
+      this.classList.toggle("open");
     });
   </script>
 
