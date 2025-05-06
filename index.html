@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Engagement Invitation</title>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -41,7 +41,8 @@
     .invitation{
       position:absolute;
       top:50%;left:50%;
-      width:320px;max-width:70vw;
+      width:320px;
+      max-width:70vw;
       transform:translate(-50%,-50%) scale(.5);
       opacity:0;
       transition:transform .8s ease,opacity .8s ease;
@@ -56,10 +57,10 @@
 
     /* ---------- BUTTON BAR ---------- */
     .map-calendar-container{
-      margin-top:40px;
+      margin-top:36px;
       display:flex;
       justify-content:center;
-      gap:16px;
+      gap:14px;
       opacity:0;
       transition:opacity 1s ease;
     }
@@ -67,12 +68,12 @@
 
     .btn{
       background:#89516d;
-      padding:5px 12px;          /* smaller padding */
+      padding:4px 10px;          /* ← smaller padding */
       color:#fff;
-      font-weight:700;
+      font-weight:600;
       border:none;
-      border-radius:6px;
-      font-size:.8rem;           /* smaller font */
+      border-radius:5px;         /* slightly smaller radius */
+      font-size:.7rem;           /* ← smaller font */
       text-decoration:none;
       cursor:pointer;
       transition:background .25s ease;
@@ -89,12 +90,13 @@
       .map-calendar-container{
         flex-direction:column;
         gap:10px;
+        margin-top:28px;
       }
       .btn{
-        width:70vw;
-        max-width:240px;
-        padding:6px 14px;       /* slight increase for touch comfort */
-        font-size:.85rem;
+        width:68vw;             /* comfortable tap width */
+        max-width:220px;
+        padding:6px 12px;
+        font-size:.8rem;        /* bump for readability on small screens */
       }
     }
   </style>
@@ -109,10 +111,10 @@
 
     <div class="map-calendar-container" id="infoButtons">
       <a href="https://maps.app.goo.gl/cwsiUbtsPYxdDcKk6" target="_blank" class="btn">
-        📍
+        📍 Get&nbsp;Directions
       </a>
       <a href="engagement_event.ics" download class="btn">
-        📅
+        📅 Add&nbsp;to&nbsp;Calendar
       </a>
     </div>
   </div>
