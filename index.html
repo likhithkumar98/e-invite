@@ -5,80 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Engagement Invite</title>
   <style>
-    body {
-      margin: 0;
-      background: #fdf2f8;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: sans-serif;
-      overflow: hidden;
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      margin:0;
+      background:#fdf2f8;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      overflow:hidden;
+    }
+    .container{
+      position:relative;
+      width:350px;
+      height:500px;
+      text-align:center;
+    }
+    .envelope{
+      width:100%;
+      height:auto;
+      background:url('envelope.png') center / contain no-repeat;
+      cursor:pointer;
+      transition:transform .4s ease;
+      z-index:2;
+    }
+    .invitation-wrapper{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%) scale(0);
+      opacity:0;
+      transition:transform .6s ease,opacity .6s ease;
+      z-index:3;
+    }
+    .invitation-wrapper.show{
+      transform:translate(-50%,-60%) scale(1);
+      opacity:1;
+    }
+    .invitation-wrapper img{
+      width:300px;
+      max-width:90vw;
+      border-radius:8px;
+      box-shadow:0 4px 12px rgba(0,0,0,.2);
     }
 
-    .container {
-      position: relative;
-      width: 350px;
-      height: 500px;
-      text-align: center;
+    /* ----------  BUTTONS  ---------- */
+    .invite-actions{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:2rem;                /* equal space growing outward from center */
+      flex-wrap:wrap;
     }
-
-    .envelope {
-      width: 100%;
-      height: auto;
-      background-image: url('envelope.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      cursor: pointer;
-      transition: transform 0.4s ease;
-      z-index: 2;
+    .btn{
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.75rem 1.5rem;
+      border:none;
+      border-radius:8px;
+      background:#d81b60;      /* rose-600 */
+      color:#fff;
+      font-size:.9rem;
+      font-weight:600;
+      text-decoration:none;
+      cursor:pointer;
+      transition:background .25s ease,transform .2s ease,box-shadow .2s ease;
     }
-
-    .invitation-wrapper {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      transition: transform 0.6s ease, opacity 0.6s ease;
-      z-index: 3;
+    .btn:hover{
+      background:#ad1457;
+      transform:translateY(-2px);
+      box-shadow:0 6px 16px rgba(0,0,0,.18);
     }
-
-    .invitation-wrapper.show {
-      transform: translate(-50%, -60%) scale(1);
-      opacity: 1;
+    .btn:focus-visible{
+      outline:2px solid #f8bbd0; /* rose-200 */
+      outline-offset:2px;
     }
-
-    .invitation-wrapper img {
-      width: 300px;
-      max-width: 90vw;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    .invite-actions {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .calendar-btn, .location-btn {
-      background-color: #d81b60;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-
-    .calendar-btn:hover,
-    .location-btn:hover {
-      background-color: #ad1457;
+    .btn img{
+      width:20px;
+      height:20px;
+      display:block;
     }
   </style>
 </head>
@@ -86,21 +93,32 @@
 
   <div class="container">
     <div class="envelope" id="envelope"></div>
+
     <div class="invitation-wrapper" id="invite">
       <img src="invitation.jpg" alt="Invitation" />
+
       <div class="invite-actions">
-        <a href="engagement_event.ics" class="calendar-btn" download>📅 Add to Calendar</a>
-        <a href="https://www.google.com/maps?q=Sadguru+CSR+Palace+Vidyaranyapura+Bangalore" target="_blank" class="location-btn">📍 View Location</a>
+        <a href="engagement_event.ics" class="btn" download>
+          <img src="calendar.svg" alt="Calendar icon"/>
+          <span>Add&nbsp;to&nbsp;Calendar</span>
+        </a>
+
+        <a href="https://www.google.com/maps?q=Sadguru+CSR+Palace+Vidyaranyapura+Bangalore"
+           target="_blank"
+           class="btn">
+          <img src="location.svg" alt="Location icon"/>
+          <span>View&nbsp;Location</span>
+        </a>
       </div>
     </div>
   </div>
 
   <script>
-    const envelope = document.getElementById("envelope");
-    const invite = document.getElementById("invite");
+    const envelope = document.getElementById('envelope');
+    const invite   = document.getElementById('invite');
 
-    envelope.addEventListener("click", () => {
-      invite.classList.toggle("show");
+    envelope.addEventListener('click', () => {
+      invite.classList.toggle('show');
     });
   </script>
 
