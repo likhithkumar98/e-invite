@@ -1,4 +1,4 @@
-# Engagement Invite (Animated Envelope)
+# E-Invite (Animated Envelope)
 
 Click the envelope to reveal the invitation inside! ✉️
 
