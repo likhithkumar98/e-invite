@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Engagement Invitation</title>
   <style>
-    /* ---------- RESET & BASE ---------- */
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html,body{
       height:100%;
@@ -22,18 +21,16 @@
       align-items:center;
       height:100%;
     }
-
     .container{
       position:relative;
       width:500px;
       height:375px;
-      max-width:90vw;          /* scale down on phones */
+      max-width:90vw;
     }
 
     /* ---------- ENVELOPE ---------- */
     .envelope{
-      position:absolute;
-      inset:0;
+      position:absolute;inset:0;
       background:url('envelope.png') center/contain no-repeat;
       cursor:pointer;
       transition:opacity 1s ease;
@@ -43,10 +40,8 @@
     /* ---------- INVITATION ---------- */
     .invitation{
       position:absolute;
-      top:50%;
-      left:50%;
-      width:320px;
-      max-width:70vw;          /* responsive width */
+      top:50%;left:50%;
+      width:320px;max-width:70vw;
       transform:translate(-50%,-50%) scale(.5);
       opacity:0;
       transition:transform .8s ease,opacity .8s ease;
@@ -57,18 +52,14 @@
 
     /* ---------- STATE CHANGES ---------- */
     .open .envelope{opacity:0;pointer-events:none;}
-    .open .invitation{
-      opacity:1;
-      transform:translate(-50%,-50%) scale(1.05);
-    }
+    .open .invitation{opacity:1;transform:translate(-50%,-50%) scale(1.05);}
 
     /* ---------- BUTTON BAR ---------- */
     .map-calendar-container{
-      margin-top:60px;
-      width:100%;
+      margin-top:40px;
       display:flex;
       justify-content:center;
-      gap:20px;
+      gap:16px;
       opacity:0;
       transition:opacity 1s ease;
     }
@@ -76,15 +67,15 @@
 
     .btn{
       background:#89516d;
-      padding:8px 16px;
+      padding:5px 12px;          /* smaller padding */
       color:#fff;
       font-weight:700;
       border:none;
       border-radius:6px;
-      font-size:.9rem;
+      font-size:.8rem;           /* smaller font */
       text-decoration:none;
       cursor:pointer;
-      transition:background .3s ease;
+      transition:background .25s ease;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -94,17 +85,16 @@
 
     /* ---------- MOBILE ---------- */
     @media (max-width:480px){
-      .container{
-        height:calc(375/500*90vw);  /* keep aspect ratio */
-      }
+      .container{height:calc(375/500*90vw);}
       .map-calendar-container{
         flex-direction:column;
-        gap:12px;
-        margin-top:40px;
+        gap:10px;
       }
       .btn{
-        width:80vw;
-        max-width:280px;
+        width:70vw;
+        max-width:240px;
+        padding:6px 14px;       /* slight increase for touch comfort */
+        font-size:.85rem;
       }
     }
   </style>
@@ -119,10 +109,10 @@
 
     <div class="map-calendar-container" id="infoButtons">
       <a href="https://maps.app.goo.gl/cwsiUbtsPYxdDcKk6" target="_blank" class="btn">
-        📍 Get Directions
+        📍 Get&nbsp;Directions
       </a>
       <a href="engagement_event.ics" download class="btn">
-        📅 Add to Calendar
+        📅 Add&nbsp;to&nbsp;Calendar
       </a>
     </div>
   </div>
